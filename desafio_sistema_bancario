@@ -46,7 +46,7 @@ while True:
             elif valor_saque > saldo:
                 valor_saque = -1
                 print("O valor de saque solicitado ultrapassa o saldo da conta.")
-                print(f"O saldo atual é de R$ {saldo}.\n")
+                print(f"O saldo atual é de R$ {saldo:.2f}.\n")
         saldo -= valor_saque
         extrato += f"Saque: - R$ {valor_saque:.2f}\n"
         print(f"Saque no valor de R$ {valor_saque:.2f} realizado com sucesso.")
