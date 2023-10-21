@@ -13,6 +13,7 @@ menu = """
 saldo = 0
 limite = 500
 extrato = ""
+mostra_contas = ""
 numero_saques = 0
 LIMITE_SAQUES = 3
 lista_usuarios = []
@@ -49,15 +50,7 @@ def cadastrar_usuario(lista_usuarios):
 
     return lista_usuarios
 
-# def listar_clientes(lista_usuarios):
-#     print("==== Lista de Clientes ====\n---------------------------")
-#     for i in range(len(lista_usuarios)//9):
-#         for j in range(9):
-#             print(lista_usuarios[j])
-#         print("---------------------------")
-#     print("===========================\n")
-
-def cadastrar_conta(lista_usuarios, numero_conta, lista_contas):
+def cadastrar_conta(lista_usuarios, numero_conta, lista_contas, mostra_contas):
     conta = []
     usuario_conta = input("Digite o nome completo do titular da conta: _")
 
@@ -68,13 +61,16 @@ def cadastrar_conta(lista_usuarios, numero_conta, lista_contas):
     posicao = lista_usuarios.index(usuario_conta)
     conta = ["0001", numero_conta, usuario_conta, lista_usuarios[posicao+2]]
     lista_contas += conta
-    print("=== CONTA CRIADA ========\n\nConta:", conta,"\n=========================")
+    mostra_contas += f"Conta - Agencia: {conta[0]}, Conta: {conta[1]}, Cliente: {conta[2]}\n"
+    print("=== CONTA CRIADA ========\nConta:", conta,"\n=========================")
     numero_conta += 1
 
-    return lista_usuarios, numero_conta, lista_contas
+    return lista_usuarios, numero_conta, lista_contas, mostra_contas
 
-def listar_contas():
-    print("Listar Contas")
+def listar_contas(mostra_contas):
+    print("\n================ CONTAS ================")
+    print("Não existem contas cadastradas." if not mostra_contas else mostra_contas)
+    print("==========================================")
 
 def deposito(saldo, extrato):
     valor = float(input("Informe o valor do depósito: "))
@@ -121,9 +117,9 @@ while True:
     # elif opcao == "lu":
     #     listar_clientes(lista_usuarios)
     elif opcao == "c":
-        lista_usuarios, numero_conta, lista_contas = cadastrar_conta(lista_usuarios, numero_conta, lista_contas)
+        lista_usuarios, numero_conta, lista_contas, mostra_contas = cadastrar_conta(lista_usuarios, numero_conta, lista_contas, mostra_contas)
     elif opcao == "lc":
-        listar_contas()
+        listar_contas(mostra_contas)
     elif opcao == "d":
         saldo, extrato = deposito(saldo, extrato)
     elif opcao == "s":
